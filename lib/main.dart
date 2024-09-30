@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:my_first_app/firebase_options.dart';
 import 'package:provider/provider.dart';
 import 'package:my_first_app/routes.dart';
 import 'package:my_first_app/services/services.dart';
@@ -19,7 +20,7 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
-  final Future<FirebaseApp> _initialization = Firebase.initializeApp();
+  final Future<FirebaseApp> _initialization = Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   @override
   Widget build(BuildContext context) {
@@ -32,14 +33,13 @@ class _AppState extends State<App> {
           // Error screen
         }
 
-        // Once complete, show your application
         if (snapshot.connectionState == ConnectionState.done) {
           return StreamProvider(
             create: (_) => FirestoreService().streamReport(),
             catchError: (_, err) => Report(),
             initialData: Report(),
             child: MaterialApp(
-                debugShowCheckedModeBanner: true,
+                debugShowCheckedModeBanner: false,
                 routes: appRoutes,
                 theme: appTheme),
           );

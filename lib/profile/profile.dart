@@ -34,7 +34,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 margin: const EdgeInsets.only(top: 50),
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  image: DecorationImage(fit: BoxFit.cover,
+                  image: DecorationImage(
+                    fit: BoxFit.cover,
                     image: NetworkImage(user.photoURL ??
                         'https://avatar.iran.liara.run/public'),
                   ),
@@ -49,12 +50,47 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   style: Theme.of(context).textTheme.titleSmall),
               const Spacer(),
               ElevatedButton(
-                child: const Text('logout'),
+                child: const Text('Logout'),
                 onPressed: () async {
                   await AuthService().signOut();
                   if (mounted) {
                     Navigator.of(context)
                         .pushNamedAndRemoveUntil('/', (route) => false);
+                  }
+                },
+              ),
+              const Spacer(),
+              ElevatedButton(
+                child: const Text('Reset Progress'),
+                onPressed: () async {
+                  bool confirm = await showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: const Text('Reset Progress'),
+                        content: const Text(
+                            'Are you sure you want to reset your progress? This action cannot be undone.'),
+                        actions: <Widget>[
+                          TextButton(
+                            child: const Text('Cancel'),
+                            onPressed: () {
+                              Navigator.of(context).pop(
+                                  false); 
+                            },
+                          ),
+                          TextButton(
+                            child: const Text('Reset'),
+                            onPressed: () {
+                              Navigator.of(context).pop(
+                                  true); 
+                            },
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                  if (confirm == true) {
+                    FirestoreService().resetUserReport();
                   }
                 },
               ),
