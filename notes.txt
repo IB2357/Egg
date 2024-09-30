@@ -1,0 +1,5 @@
+Design patterns:
+    Facade: Route and barrelfies
+    Adapter: models.g.dart
+    Singleton: main and themes
+    Builder: Every widget
