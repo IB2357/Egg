@@ -45,7 +45,6 @@ class AnimatedProgressbar extends StatelessWidget {
     );
   }
 
-  /// Always round negative or NaNs to min value
   _floor(double value, [min = 0.0]) {
     return value.sign <= min ? min : value;
   }

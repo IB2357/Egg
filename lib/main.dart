@@ -33,7 +33,6 @@ class _AppState extends State<App> {
           // Error screen
         }
 
-        // Once complete, show your application
         if (snapshot.connectionState == ConnectionState.done) {
           return StreamProvider(
             create: (_) => FirestoreService().streamReport(),

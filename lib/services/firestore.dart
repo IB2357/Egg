@@ -23,7 +23,7 @@ class FirestoreService {
     return Quiz.fromJson(snapshot.data() ?? {});
   }
 
-    /// Listens to current user's report document in Firestore
+  /// Listens to current user's report document in Firestore
   Stream<Report> streamReport() {
     return AuthService().userStream.switchMap((user) {
       if (user != null) {
