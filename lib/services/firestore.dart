@@ -49,4 +49,17 @@ class FirestoreService {
 
     return ref.set(data, SetOptions(merge: true));
   }
+
+  /// Resets the current user's report document
+  Future<void> resetUserReport() {
+    var user = AuthService().user!;
+    var ref = _db.collection('reports').doc(user.uid);
+
+    var data = {
+      'total': 0, 
+      'topics': {} 
+    };
+
+    return ref.set(data);
+  }
 }
